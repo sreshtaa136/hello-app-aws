@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}Share{% endblock %}
+<div class="container">
+{% block content %}
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #6a2c91cd;">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+                <img src="https://d6ondcb9w3k82.cloudfront.net/hello.png" alt="hello" height="40" style="padding-right: 30px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">                        
+                  <a class="nav-item nav-link" style="color: rgb(255, 255, 255);padding-right: 50px;" id="login" href="/">Login</a>
+                  <a class="nav-item nav-link" style="color: rgb(255, 255, 255);padding-right: 50px;" id="signUp" href="/sign-up">Sign Up</a>             
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} 
+    {% for category, message in messages %} 
+    {% if category == 'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endif %} 
+    {% endfor %} 
+    {% endif %} 
+    {% endwith %}
+
+    <!-- PAGE CONTENT -->
+    <div class="container">
+        <br>
+        <section class="notes">
+
+            <script type="text/javascript" src="{{ url_for('static', filename='index.js')}}"></script>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0" nonce="8wOUQmNR"></script>
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0" nonce="yWC5KHl0"></script>
+           
+
+            {% if note %}
+            <br>
+            <br>
+            <br>
+            <div class="col-md-4">
+                <div class="card" 
+                style="width: 18rem;
+                -webkit-filter: drop-shadow(5px 5px 5px #666666);
+                filter: drop-shadow(5px 5px 5px #666666);
+                margin-left: 11.1cm;">
+                    <div class="card-body">
+                    <h6 class="card-title">Posted by: @{{ note.user_name }} <small>({{ note.visibility }})</small></h6>
+                    <p class="card-subtitle mb-2 text-muted"><small>{{ note.date }}</small></p>
+                    <br>
+                    <h6 class="card-text">{{ note.data }}</h6>
+                    <br>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="btn-group" 
+            style="
+            float:left;
+            left:35.25%;
+            transform:translateY(-35.25%);
+            background-color: white;
+            border-radius: 10px;
+            -webkit-filter: drop-shadow(5px 5px 5px #666666);
+            filter: drop-shadow(5px 5px 5px #666666);
+            padding-top: 9px;
+            padding-bottom: 9px;">
+
+                <div style="margin: 0px 12px;" class="fb-share-button" data-href="http://helloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com/share/{{ email1 }}&#064;{{ email2 }}/{{ note.id }}" data-layout="button" data-size="large">
+                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fhelloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com%2Fshare%2F{{ email1 }}%40{{ email2 }}%2F{{ note.id }}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+                </div>
+
+                <a style="margin: 0px 12px;" data-size="large" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="A note by @{{ note.user_name }} on hello" data-url="http://helloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com/share/{{ note.email }}/{{ note.id }}" style="margin: 0px 8px;" data-show-count="false"></a> 
+
+                <a href="http://www.reddit.com/submit?url=http%3A%2F%2Fhelloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com%2Fshare%2F{{ email1 }}%40{{ email2 }}%2F{{ note.id }}" target="_blank" title="Submit to Reddit">
+                    <img alt="Reddit" src="https://i.pinimg.com/originals/db/a1/39/dba13992aa33c33e549c4ef9fbb7effe.png" style="height: 0.8cm;margin: 0px 12px;" />
+                </a>
+
+                <a href="#" class="linkedin-btn" style="margin: 0px 12px;" name="A note by @{{ note.user_name }} on hello:linkedin" onclick="shareNote(name)">
+                    <i class="fab fa-linkedin" style="color: #0077b5;font-size: 30px;"></i>
+                </a> 
+
+                <a href="#" class="whatsapp-btn" style="margin: 0px 12px;" name="A note by @{{ note.user_name }} on hello:whatsapp" onclick="shareNote(name)">
+                    <i class="fab fa-whatsapp" style="color: #25d366;font-size: 30px;"></i>
+                </a>
+                
+                <a href="mailto:?subject=A%20note&body=%20http%3A%2F%2Fhelloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com%2Fshare%2F{{ email1 }}%40{{ email2 }}%2F{{ note.id }}" target="_blank" title="Send email">
+                    <img alt="email" src="https://img.icons8.com/ios-filled/344/new-post.png" style="height: 0.7cm;margin: 0px 12px;"/>
+                </a>
+
+            </div>
+            {% endif %}
+
+            {% if image %}
+            <div class="col-md-4">
+                <div class="card" 
+                style="width: 18rem;
+                -webkit-filter: drop-shadow(5px 5px 5px #666666);
+                filter: drop-shadow(5px 5px 5px #666666);
+                margin-top: 3cm;
+                margin-left: 11cm;">
+                    <div class="card-body">
+                        <h6 class="card-title">Posted by: @{{ image['name'] }} <small>({{ image['visibility'] }})</small></h6>
+                        <p class="card-subtitle mb-2 text-muted"><small>{{ image['date'] }}</small></p>                       
+                    </div>                       
+                    <img class="card-img-top" src={{ image.url }} alt="Card image cap">                                                
+                </div>
+                <br>
+            </div>
+            <br>
+            <br>
+            <div class="btn-group" 
+            style="
+            float:left;
+            left:33.6%;
+            transform:translateY(-33.6%);
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            border-radius: 10px;
+            -webkit-filter: drop-shadow(5px 5px 5px #666666);
+            filter: drop-shadow(5px 5px 5px #666666);
+            padding-top: 9px;
+            padding-bottom: 9px;
+            padding-right: 9px;">
+
+                <div style="margin: 0px 12px;" class="fb-share-button" data-href="http://helloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com/share/{{ email1 }}&#064;{{ email2 }}/{{ image.fileName }}" data-layout="button" data-size="large">
+                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fhelloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com%2Fshare%2F{{ email1 }}%40{{ email2 }}%2F{{ image.fileName }}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
+                </div>
+
+                <a style="margin: 0px 12px;" data-size="large" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="An image by @{{ image.name }} on hello" data-url="http://helloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com/share/{{ image.email }}/{{ image.fileName }}" style="margin: 0px 8px;" data-show-count="false"></a> 
+
+                <a href="http://www.reddit.com/submit?url=http%3A%2F%2Fhelloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com%2Fshare%2F{{ email1 }}%40{{ email2 }}%2F{{ image.fileName }}" target="_blank" title="Submit to Reddit">
+                    <img alt="Reddit" src="https://i.pinimg.com/originals/db/a1/39/dba13992aa33c33e549c4ef9fbb7effe.png" style="height: 0.8cm;margin: 0px 12px;" />
+                </a>
+                
+                <a href="#" class="linkedin-btn" style="margin: 0px 8px;" name="An image by @{{ image.name }} on hello:linkedin" onclick="shareNote(name)">
+                    <i class="fab fa-linkedin" style="color: #0077b5;font-size: 30px;"></i>
+                </a> 
+
+                <a href="#" class="whatsapp-btn" style="margin: 0px 12px;" name="An image by @{{ image.name }} on hello:whatsapp" onclick="shareNote(name)">
+                    <i class="fab fa-whatsapp" style="color: #25d366;font-size: 30px;"></i>
+                </a>
+
+                <a data-pin-do="buttonPin" style="margin: 0px 8px;" data-pin-tall="true" data-pin-round="true" href="https://www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fhelloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com%2Fshare%2F{{ email1 }}%40{{ email2 }}%2F{{ image.fileName }}&media={{ image.url }}&description=Next%20stop%3A%20Pinterest">
+                    <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_round_red_32.png" style="height: 3cm;" />
+                </a>
+
+                <a href="mailto:?subject=An%20image&body=%20http%3A%2F%2Fhelloapp-env.eba-t9qqrmxm.us-east-1.elasticbeanstalk.com%2Fshare%2F{{ email1 }}%40{{ email2 }}%2F{{ image.fileName }}" target="_blank" title="Send email">
+                    <img alt="email" src="https://img.icons8.com/ios-filled/344/new-post.png" style="height: 0.7cm;margin: 0px 12px;"/>
+                </a>
+
+            </div>
+            {% endif %}
+            
+        <br>
+        <br>
+        <br>
+
+    </div>
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+
+{% endblock %}
+</div>
