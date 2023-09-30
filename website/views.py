@@ -3,18 +3,15 @@ from . import dynamo_db
 import json, os, boto3
 from werkzeug.utils import secure_filename
 
-access_key_id = "ASIA23OAS5CFOTYJGFFT"
-secret_access_key = "FzZIfMAnaJlvpYapo/zezdXSrd7xh1I28pJxTuSJ"
-session_token = "FwoGZXIvYXdzEHgaDAhBBaEqc//Da7bxQCLNAU1fH5MD/WNEHG4IuWX8zMHudwZOg1EpNYXFb67R07cJz/PS1qJGkkDJzXsvJCDQEKZ3noC9tdt2TAmp9orSdRrT80OTaOINE6/L5SB8dZQkThikSLZPL7dA9Nkfb647NlKY9AB6GJAk/PfQMiSl548TWf5YmtAbbQY+viFCyd+7rJ8pkub+1MK+tuF/qm9iz1NZBtv7cSbYyyGsFDxld/AYCpv+Bq+dvkviK1kjeKKgPTlXyrZMJpkYy47W2FAkXJJ0Sav7vavzv9iQrCYojrW6kwYyLaQBQAl59BcTZ6DZaR51GIkPo4paIbbtABFFjt6Q1gBWN2HirnW/AKsVfdOnDw=="
+access_key_id = ""
+secret_access_key = ""
+session_token = ""
 
 s3 = boto3.client('s3',
-            region_name="us-east-1",
-            aws_access_key_id = access_key_id,
-            aws_secret_access_key = secret_access_key,
-            aws_session_token = session_token
+            region_name="ap-southeast-2"
 )
 
-bucket_name = "elasticbeanstalk-us-east-1-746117589130"
+bucket_name = "elasticbeanstalk-ap-southeast-2-589317211241"
 
 # this file is a blueprint of our app 
 # (it contains all the routes)
